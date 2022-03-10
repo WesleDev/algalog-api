@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wesledev.algalog.domain.model.Cliente;
+import com.wesledev.algalog.domain.model.service.CatalogoClienteService;
 import com.wesledev.algalog.domain.repository.ClienteRepository;
 
 @RestController
@@ -27,6 +28,9 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private CatalogoClienteService catalogoClienteService;
 
     @GetMapping
     public List<Cliente> listar() {
@@ -52,7 +56,8 @@ public class ClienteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
-    	return clienteRepository.save(cliente);
+//    	return clienteRepository.save(cliente);
+    	return catalogoClienteService.salvar(cliente);
     }
     
     @PutMapping("/{clienteId}")
@@ -62,7 +67,8 @@ public class ClienteController {
     	}
     	
     	cliente.setId(clienteId);
-    	cliente = clienteRepository.save(cliente);
+//    	cliente = clienteRepository.save(cliente);
+    	cliente =  catalogoClienteService.salvar(cliente);
     	
     	return ResponseEntity.ok(cliente);
     }
@@ -73,7 +79,8 @@ public class ClienteController {
     		return ResponseEntity.notFound().build();
     	}
     	
-    	clienteRepository.deleteById(clienteId);
+//    	clienteRepository.deleteById(clienteId);
+    	catalogoClienteService.excluir(clienteId);
     	
     	return ResponseEntity.noContent().build();
     }
