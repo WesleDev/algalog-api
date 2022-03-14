@@ -1,5 +1,6 @@
 package com.wesledev.algalog.domain.model.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,12 +11,14 @@ import com.wesledev.algalog.domain.repository.ClienteRepository;
 @Service
 public class CatalogoClienteService {
 
+	@Autowired
 	private ClienteRepository clienteRepository;
 
-	public CatalogoClienteService(ClienteRepository clienteRepository) {
-		super();
-		this.clienteRepository = clienteRepository;
+	public Cliente buscar(Long clienteId) {
+		return  clienteRepository.findById(clienteId)
+				.orElseThrow(() -> new NegocioException("Cliente não encontrado"));
 	}
+	
 	
 	@Transactional
 	public Cliente salvar(Cliente cliente) {
