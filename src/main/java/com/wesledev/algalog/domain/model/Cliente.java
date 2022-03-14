@@ -9,36 +9,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.wesledev.algalog.domain.ValidationGroups;
 
 @Entity
 public class Cliente {
 
-	@NotNull(groups = ValidationGroups.ClienteId.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-	
+	private Long id;
+
 	@NotBlank
-	@Size(max= 60)
-    private String nome;
-	
+	@Size(max = 60)
+	private String nome;
+
 	@NotBlank
 	@Email
 	@Size(max = 255)
-    private String email;
-    
+	private String email;
+
 	@NotBlank
 	@Size(max = 20)
-    @Column(name =  "fone")
-    private String telefone;
-    
-    
+	@Column(name = "fone")
+	private String telefone;
 
-    @Override
+	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
@@ -56,34 +50,34 @@ public class Cliente {
 	}
 
 	public Long getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getTelefone() {
-        return telefone;
-    }
+	public String getTelefone() {
+		return telefone;
+	}
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 }
