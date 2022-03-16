@@ -9,15 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@Entity
-public class Ocorrencia {
+@Entity(name = "Ocorrencia")
+public class Occurrence {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@ManyToOne
-	private Entrega entrega;
+	private Delivery entrega;
 	
 	private String descricao;
 	
@@ -36,7 +36,7 @@ public class Ocorrencia {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Ocorrencia other = (Ocorrencia) obj;
+		Occurrence other = (Occurrence) obj;
 		return Objects.equals(id, other.id);
 	}
 
@@ -48,11 +48,11 @@ public class Ocorrencia {
 		this.id = id;
 	}
 
-	public Entrega getEntrega() {
+	public Delivery getEntrega() {
 		return entrega;
 	}
 
-	public void setEntrega(Entrega entrega) {
+	public void setEntrega(Delivery entrega) {
 		this.entrega = entrega;
 	}
 

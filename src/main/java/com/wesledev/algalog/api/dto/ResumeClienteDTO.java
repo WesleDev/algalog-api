@@ -1,6 +1,6 @@
-package com.wesledev.algalog.api.model;
+package com.wesledev.algalog.api.dto;
 
-public class ClienteResumoModel {
+public class ResumeClienteDTO {
 
 	private Long id;
 	private String nome;

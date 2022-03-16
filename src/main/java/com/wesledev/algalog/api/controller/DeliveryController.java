@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,47 +16,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wesledev.algalog.api.assembler.EntregaMapper;
-import com.wesledev.algalog.api.model.DestinatarioModel;
-import com.wesledev.algalog.api.model.EntregaModel;
-import com.wesledev.algalog.api.model.input.EntregaInput;
-import com.wesledev.algalog.domain.model.Entrega;
-import com.wesledev.algalog.domain.model.service.FinalizacaoEntregaService;
-import com.wesledev.algalog.domain.model.service.SolicitacaoEntregaService;
-import com.wesledev.algalog.domain.repository.EntregaRepository;
+import com.wesledev.algalog.api.assembler.DeliveryMapper;
+import com.wesledev.algalog.api.dto.DeliveryDTO;
+import com.wesledev.algalog.api.model.input.InputDelivery;
+import com.wesledev.algalog.domain.model.Delivery;
+import com.wesledev.algalog.domain.model.service.FinishedDeliveryService;
+import com.wesledev.algalog.domain.model.service.RequestDeliveryService;
+import com.wesledev.algalog.domain.repository.DeliveryRepository;
 
 @RestController
 @RequestMapping("/entregas")
-public class EntregaController {
+public class DeliveryController {
 
 	@Autowired
-	private SolicitacaoEntregaService solicitacaoEntregaService;
+	private RequestDeliveryService requestDeliveryService;
 
 	@Autowired
-	private EntregaRepository entregaRepository;
+	private DeliveryRepository deliveryRepository;
 
 	@Autowired
-	private EntregaMapper entregaMapper;
+	private DeliveryMapper deliveryMapper;
 
 	@Autowired
-	private FinalizacaoEntregaService finalizacaoEntregaService;
+	private FinishedDeliveryService finishedDeliveryService;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public EntregaModel solicitar(@Valid @RequestBody EntregaInput entregaInput) {
-		Entrega novaEntrega = entregaMapper.toEntity(entregaInput);
-		Entrega entregaSolicitada = solicitacaoEntregaService.solicitar(novaEntrega);
-		return entregaMapper.toModel(entregaSolicitada);
+	public DeliveryDTO request(@Valid @RequestBody InputDelivery inputDelivery) {
+		Delivery newDelivery = deliveryMapper.toEntity(inputDelivery);
+		Delivery requestDelivery = requestDeliveryService.solicitar(newDelivery);
+		return deliveryMapper.toModel(requestDelivery);
 	}
 
 	@GetMapping
-	public List<EntregaModel> listar() {
-		return entregaMapper.toCollectionModel(entregaRepository.findAll());
+	public List<DeliveryDTO> listDeliveries() {
+		return deliveryMapper.toCollectionModel(deliveryRepository.findAll());
 	}
 
-	@GetMapping("/{entregaId}")
-	public ResponseEntity<EntregaModel> buscar(@PathVariable Long entregaId) {
-		return entregaRepository.findById(entregaId).map(entrega -> ResponseEntity.ok(entregaMapper.toModel(entrega)))
+	@GetMapping("/{deliveryId}")
+	public ResponseEntity<DeliveryDTO> search(@PathVariable Long deliveryId) {
+		return deliveryRepository.findById(deliveryId).map(delivery -> ResponseEntity.ok(deliveryMapper.toModel(delivery)))
 				.orElse(ResponseEntity.notFound().build());
 
 //					EntregaModel entregaModel = new EntregaModel();
@@ -79,9 +77,9 @@ public class EntregaController {
 //				.orElse(ResponseEntity.notFound().build());
 	}
 
-	@PutMapping("/{entregaId}/finalizacao")
+	@PutMapping("/{deliveryId}/finalizacao")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void finalizar(@PathVariable Long entregaId) {
-		finalizacaoEntregaService.finalizar(entregaId);
+	public void finished(@PathVariable Long deliveryId) {
+		finishedDeliveryService.finish(deliveryId);
 	}
 }

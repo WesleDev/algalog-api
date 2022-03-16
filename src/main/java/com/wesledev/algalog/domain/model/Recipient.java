@@ -5,7 +5,7 @@ import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
 
 @Embeddable
-public class Destinatario {
+public class Recipient {
 
 	@NotBlank
 	@Column(name= "destinatario_nome")

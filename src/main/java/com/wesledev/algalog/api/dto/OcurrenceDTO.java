@@ -1,8 +1,8 @@
-package com.wesledev.algalog.api.model;
+package com.wesledev.algalog.api.dto;
 
 import java.time.OffsetDateTime;
 
-public class OcorrenciaModel {
+public class OcurrenceDTO {
 
 	private Long id;
 	private String descricao;

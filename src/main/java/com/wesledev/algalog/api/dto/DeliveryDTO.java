@@ -1,17 +1,17 @@
-package com.wesledev.algalog.api.model;
+package com.wesledev.algalog.api.dto;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
-import com.wesledev.algalog.domain.model.StatusEntrega;
+import com.wesledev.algalog.domain.model.DeliveryStatus;
 
-public class EntregaModel {
+public class DeliveryDTO {
 
 	private Long id;
-	private ClienteResumoModel cliente;
-	private DestinatarioModel destinatario;
+	private ResumeClienteDTO cliente;
+	private RecipientDTO destinatario;
 	private BigDecimal taxa;
-	private StatusEntrega status;
+	private DeliveryStatus status;
 	private OffsetDateTime dataPedido;
 	private OffsetDateTime dataFinalizacao;
 	
@@ -23,16 +23,16 @@ public class EntregaModel {
 		this.id = id;
 	}
 	
-	public ClienteResumoModel getCliente() {
+	public ResumeClienteDTO getCliente() {
 		return cliente;
 	}
-	public void setCliente(ClienteResumoModel cliente) {
+	public void setCliente(ResumeClienteDTO cliente) {
 		this.cliente = cliente;
 	}
-	public DestinatarioModel getDestinatario() {
+	public RecipientDTO getDestinatario() {
 		return destinatario;
 	}
-	public void setDestinatario(DestinatarioModel destinatario) {
+	public void setDestinatario(RecipientDTO destinatario) {
 		this.destinatario = destinatario;
 	}
 	public BigDecimal getTaxa() {
@@ -41,10 +41,10 @@ public class EntregaModel {
 	public void setTaxa(BigDecimal taxa) {
 		this.taxa = taxa;
 	}
-	public StatusEntrega getStatus() {
+	public DeliveryStatus getStatus() {
 		return status;
 	}
-	public void setStatus(StatusEntrega status) {
+	public void setStatus(DeliveryStatus status) {
 		this.status = status;
 	}
 	public OffsetDateTime getDataPedido() {

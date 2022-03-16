@@ -5,34 +5,34 @@ import java.math.BigDecimal;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-public class EntregaInput {
+public class InputDelivery {
 	
 	//se der erro falta o autowired
 
 	@Valid
 	@NotNull
-	private ClienteIdInput cliente;
+	private InputClientId cliente;
 
 	@Valid
 	@NotNull
-	private DestinatarioInput destinatario;
+	private InputRecipient destinatario;
 
 	@NotNull
 	private BigDecimal taxa;
 
-	public ClienteIdInput getCliente() {
+	public InputClientId getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(ClienteIdInput cliente) {
+	public void setCliente(InputClientId cliente) {
 		this.cliente = cliente;
 	}
 
-	public DestinatarioInput getDestinatario() {
+	public InputRecipient getDestinatario() {
 		return destinatario;
 	}
 
-	public void setDestinatario(DestinatarioInput destinatario) {
+	public void setDestinatario(InputRecipient destinatario) {
 		this.destinatario = destinatario;
 	}
 

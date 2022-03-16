@@ -17,28 +17,28 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.wesledev.algalog.domain.model.exception.NegocioException;
+import com.wesledev.algalog.domain.model.exception.BusinessException;
 
-@Entity
-public class Entrega {
+@Entity(name = "Entrega")
+public class Delivery {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@ManyToOne
-	private Cliente cliente;
+	private Client cliente;
 
 	@Embedded
-	private Destinatario destinatario;
+	private Recipient destinatario;
 
 	private BigDecimal taxa;
 
 	@OneToMany(mappedBy = "entrega", cascade = CascadeType.ALL)
-	private List<Ocorrencia> ocorrencias = new ArrayList<>();
+	private List<Occurrence> ocorrencias = new ArrayList<>();
 
 	@Enumerated(EnumType.STRING)
-	private StatusEntrega status;
+	private DeliveryStatus status;
 
 	private OffsetDateTime dataPedido;
 
@@ -57,7 +57,7 @@ public class Entrega {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Entrega other = (Entrega) obj;
+		Delivery other = (Delivery) obj;
 		return Objects.equals(id, other.id);
 	}
 
@@ -69,19 +69,19 @@ public class Entrega {
 		this.id = id;
 	}
 
-	public Cliente getCliente() {
+	public Client getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(Client cliente) {
 		this.cliente = cliente;
 	}
 
-	public Destinatario getDestinatario() {
+	public Recipient getDestinatario() {
 		return destinatario;
 	}
 
-	public void setDestinatario(Destinatario destinatario) {
+	public void setDestinatario(Recipient destinatario) {
 		this.destinatario = destinatario;
 	}
 
@@ -93,11 +93,11 @@ public class Entrega {
 		this.taxa = taxa;
 	}
 
-	public StatusEntrega getStatus() {
+	public DeliveryStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusEntrega status) {
+	public void setStatus(DeliveryStatus status) {
 		this.status = status;
 	}
 
@@ -117,35 +117,35 @@ public class Entrega {
 		this.dataFinalizacao = dataFinalizacao;
 	}
 
-	public List<Ocorrencia> getOcorrencias() {
+	public List<Occurrence> getOcorrencias() {
 		return ocorrencias;
 	}
 
-	public void setOcorrencias(List<Ocorrencia> ocorrencias) {
+	public void setOcorrencias(List<Occurrence> ocorrencias) {
 		this.ocorrencias = ocorrencias;
 	}
 
-	public Ocorrencia adicionarOcorrencia(String descricao) {
-		Ocorrencia ocorrencia = new Ocorrencia();
-		ocorrencia.setDescricao(descricao);
-		ocorrencia.setDataRegistro(OffsetDateTime.now());
-		ocorrencia.setEntrega(this);
+	public Occurrence addOccorrence(String description) {
+		Occurrence occorrence = new Occurrence();
+		occorrence.setDescricao(description);
+		occorrence.setDataRegistro(OffsetDateTime.now());
+		occorrence.setEntrega(this);
 
-		this.getOcorrencias().add(ocorrencia);
+		this.getOcorrencias().add(occorrence);
 
-		return ocorrencia;
+		return occorrence;
 	}
 
-	public void finalizar() {
+	public void finished() {
 		if (naoPodeSerFinalizada()) {
-			throw new NegocioException("Entrega não pode ser finalizada");
+			throw new BusinessException("Entrega não pode ser finalizada");
 		}
-		setStatus(StatusEntrega.FINALIZADA);
+		setStatus(DeliveryStatus.FINALIZADA);
 		setDataFinalizacao(OffsetDateTime.now());
 	}
 	
 	public boolean podeSerFinalizada() {
-		return StatusEntrega.PENDENTE.equals(getStatus());
+		return DeliveryStatus.PENDENTE.equals(getStatus());
 	}
 	
 	public boolean naoPodeSerFinalizada() {

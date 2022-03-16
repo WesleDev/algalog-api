@@ -2,7 +2,7 @@ package com.wesledev.algalog.api.model.input;
 
 import javax.validation.constraints.NotNull;
 
-public class ClienteIdInput {
+public class InputClientId {
 
 	@NotNull
 	private Long id;

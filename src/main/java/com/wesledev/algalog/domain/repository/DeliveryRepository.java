@@ -3,9 +3,9 @@ package com.wesledev.algalog.domain.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.wesledev.algalog.domain.model.Entrega;
+import com.wesledev.algalog.domain.model.Delivery;
 
 @Repository
-public interface EntregaRepository extends JpaRepository<Entrega, Long> {
+public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
 
 }

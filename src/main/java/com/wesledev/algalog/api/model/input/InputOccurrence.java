@@ -2,7 +2,7 @@ package com.wesledev.algalog.api.model.input;
 
 import javax.validation.constraints.NotBlank;
 
-public class OcorrenciaInput {
+public class InputOccurrence {
 
 	@NotBlank
 	private String descricao;

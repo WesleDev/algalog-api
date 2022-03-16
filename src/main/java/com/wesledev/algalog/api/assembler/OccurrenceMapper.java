@@ -7,21 +7,21 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.wesledev.algalog.api.model.OcorrenciaModel;
-import com.wesledev.algalog.domain.model.Ocorrencia;
+import com.wesledev.algalog.api.dto.OcurrenceDTO;
+import com.wesledev.algalog.domain.model.Occurrence;
 
 @Component
-public class OcorrenciaMapper {
+public class OccurrenceMapper {
 
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	public OcorrenciaModel toModel(Ocorrencia ocorrencia) {
-		return modelMapper.map(ocorrencia,OcorrenciaModel.class);
+	public OcurrenceDTO toModel(Occurrence occurrence) {
+		return modelMapper.map(occurrence,OcurrenceDTO.class);
 	}
 	
-	public List<OcorrenciaModel> toCollectionModel(List<Ocorrencia> ocorrencias) {
-		return ocorrencias.stream()
+	public List<OcurrenceDTO> toCollectionModel(List<Occurrence> occurrencies) {
+		return occurrencies.stream()
 				.map(this::toModel)
 				.collect(Collectors.toList());
 	}
